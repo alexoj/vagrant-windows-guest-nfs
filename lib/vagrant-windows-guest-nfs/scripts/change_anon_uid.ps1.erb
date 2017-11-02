@@ -1,0 +1,15 @@
+$anonUid = [int]"<%= options[:uid] %>"
+$anonGid = [int]"<%= options[:gid] %>"
+
+$key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default"
+
+$curAnonUid = [int](Get-ItemProperty -Path $key -Name "AnonymousUid")."AnonymousUid"
+$curAnonGid = [int](Get-ItemProperty -Path $key -Name "AnonymousGid")."AnonymousGid"
+
+if (($anonUid -ne $curAnonUid) -or ($anonGid -ne $curAnonGid)) {
+    Set-ItemProperty -Path $key -Name "AnonymousUid" -Value $anonUid
+    Set-ItemProperty -Path $key -Name "AnonymousGid" -Value $anonGid
+
+    & nfsadmin client stop
+    & nfsadmin client start
+}
