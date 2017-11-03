@@ -4,7 +4,7 @@ require "base64"
 module VagrantWindowsGuestNfs
 class MountNfsFolder
     def self.nfs_client_installed(machine)
-        machine.communicate.test("sc query nfsclnt")
+        machine.communicate.test("$ProgressPreference=\"SilentlyContinue\"; sc.exe query nfsclnt")
     end
 
     def self.mount_nfs_folder(machine, ip, folders)

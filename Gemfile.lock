@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    vagrant-windows-guest-nfs (0.1)
+    vagrant-windows-guest-nfs (0.2)
 
 GEM
   remote: https://rubygems.org/
